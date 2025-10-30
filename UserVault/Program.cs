@@ -5,8 +5,11 @@ using UserVault.DependencyExtensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // ✅ Register DbContext
+//builder.Services.AddDbContext<EFDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString")));
+
 builder.Services.AddDbContext<EFDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnectionString")));
 
 // ✅ Bind only the "AppSettings" section
 var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>();
